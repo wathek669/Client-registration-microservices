@@ -42,7 +42,7 @@ public class CustomerService {
                 new NotificationRequest(
                         customer.getId(),
                         customer.getEmail(),
-                        String.format("Hi %s, welcome to Amigoscode...",
+                        String.format("Hi %s, welcome to watheks microservices...",
                                 customer.getFirstName())
                 )
         );   }
