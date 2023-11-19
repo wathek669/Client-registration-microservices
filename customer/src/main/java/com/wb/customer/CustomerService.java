@@ -1,5 +1,6 @@
 package com.wb.customer;
 
+import com.wb.amqp.RabbitMQMessageProducer;
 import com.wb.clients.fraud.FraudCheckResponse;
 import com.wb.clients.fraud.FraudClient;
 ;
@@ -16,7 +17,9 @@ public class CustomerService {
     private final CustomerRepository customerRepository;
     private final RestTemplate restTemplate;
     private final FraudClient fraudClient;
-    private final NotificationClient notificationClient;
+    //private final NotificationClient notificationClient;
+    private final RabbitMQMessageProducer rabbitMQMessageProducer;
+
 
     public void registerCustomer(CustomerRegistrationRequest request) {
         Customer customer = Customer.builder()
@@ -37,13 +40,16 @@ public class CustomerService {
         }
         //customerRepository.save(customer);
 
-        //todo : send notifications
-        notificationClient.sendNotification(
-                new NotificationRequest(
-                        customer.getId(),
-                        customer.getEmail(),
-                        String.format("Hi %s, welcome to watheks microservices...",
-                                customer.getFirstName())
-                )
-        );   }
+        // async communication between notification and customer requests
+        NotificationRequest notificationRequest = new NotificationRequest(
+                customer.getId(),
+                customer.getEmail(),
+                String.format("Hi %s, welcome to watheks microservices...",
+                        customer.getFirstName())
+        );
+        rabbitMQMessageProducer.publish(
+                notificationRequest,"internal.exchange","internal.notification.routing-key"
+        );
+          }
+
 }

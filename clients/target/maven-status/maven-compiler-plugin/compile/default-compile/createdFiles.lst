@@ -1,0 +1,4 @@
+com\wb\clients\notification\NotificationRequest.class
+com\wb\clients\notification\NotificationClient.class
+com\wb\clients\fraud\FraudClient.class
+com\wb\clients\fraud\FraudCheckResponse.class

@@ -1,0 +1,8 @@
+com\wb\customer\Customer.class
+com\wb\customer\CustomerApplication.class
+com\wb\customer\CustomerController.class
+com\wb\customer\CustomerRegistrationRequest.class
+com\wb\customer\CustomerConfig.class
+com\wb\customer\CustomerRepository.class
+com\wb\customer\CustomerService.class
+com\wb\customer\Customer$CustomerBuilder.class
